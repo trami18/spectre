@@ -24,6 +24,8 @@ namespace GeneralizedHarmonic::ConstraintDamping {
 /// \cond
 template <size_t VolumeDim, typename Fr>
 class GaussianPlusConstant;
+template <size_t VolumeDim, typename Fr>
+class ConstantOnly;
 /// \endcond
 
 /*!
@@ -36,9 +38,11 @@ class GaussianPlusConstant;
 template <size_t VolumeDim, typename Fr>
 class DampingFunction : public PUP::able {
  public:
-  using creatable_classes =
-      tmpl::list<GeneralizedHarmonic::ConstraintDamping::GaussianPlusConstant<
-          VolumeDim, Fr>>;
+  using creatable_classes = tmpl::list<
+      GeneralizedHarmonic::ConstraintDamping::GaussianPlusConstant<VolumeDim,
+                                                                   Fr>,
+      GeneralizedHarmonic::ConstraintDamping::ConstantOnly<VolumeDim, Fr>>;
+
   constexpr static size_t volume_dim = VolumeDim;
   using frame = Fr;
 
@@ -74,4 +78,5 @@ class DampingFunction : public PUP::able {
 };
 }  // namespace GeneralizedHarmonic::ConstraintDamping
 
+#include "Evolution/Systems/GeneralizedHarmonic/ConstraintDamping/ConstantOnly.hpp"
 #include "Evolution/Systems/GeneralizedHarmonic/ConstraintDamping/GaussianPlusConstant.hpp"
